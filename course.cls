@@ -23,6 +23,7 @@
 \RequirePackage{fancyhdr}
 \RequirePackage{framed}
 \RequirePackage{graphicx}
+\RequirePackage{imakeidx}
 \RequirePackage{hyperref}
 \RequirePackage{ifthen}
 \RequirePackage{lastpage}                       % count number of pages, provide LastPage
@@ -100,6 +101,15 @@
 %
 % TITLE PAGE CUSTOMIZATION
 %
+% Miscellaneous
+\renewcommand\maketitle
+{
+  \thispagestyle{none-plain}
+  \begin{center}
+    {\LARGE \bf \@name} 
+  \end{center}
+  \noindent\rule{\textwidth}{0.5pt}
+}
 % Syllabus
 \ifdefined\@syllabus
 \renewcommand\maketitle
@@ -135,7 +145,7 @@
 
     \ifdefined\@duedate
     \vspace{0.5cm}
-    \ifdefined\@assigneddate{\large Assigned: \@assigneddate}\fi \\ 
+    \ifdefined\@assigneddate{\large Assigned: \@assigneddate}\\ \fi 
     \vspace{1pt}{\large \bf Due: \@duedate}
     \fi
 
@@ -180,6 +190,25 @@
 %
 % HEADER / FOOTER CUSTOMIZATION
 %
+\fancypagestyle{none-fancy}
+{
+  \lhead{\@name\\\@institution}
+  \chead{}
+  \rhead{\\ \@webpage}
+  \lfoot{\@copyright}
+  \cfoot{}\rfoot{\thepage}
+}
+\fancypagestyle{none-plain}
+{
+  \rhead{} 
+  \chead{} 
+  \lhead{}
+  \lfoot{\@copyright}
+  \cfoot{}
+  \rfoot{\thepage}
+}
+\pagestyle{none-fancy}
+
 \ifdefined\@notes 
 \fancypagestyle{notes-fancy}
 {
@@ -351,6 +380,7 @@
 %
 \newenvironment{problem}[1][]
 {
+  \pagebreak[3]
   \setenumerate[0]{label=(\alph*)}
   \numberwithin{equation}{problem}
   \numberwithin{figure}{problem}
@@ -394,26 +424,9 @@
 }
 
 
-%%PRISTINE
-%\newcommand*\l@lecture[2]{%
-%  \ifnum \c@tocdepth >\z@
-%    \addpenalty\@secpenalty
-%    \addvspace{1.0em \@plus\p@}%
-%    \setlength\@tempdima{1.5em}%
-%    \begingroup
-%      \parindent \z@ \rightskip \@pnumwidth
-%      \parfillskip -\@pnumwidth
-%      \leavevmode \bfseries
-%      \advance\leftskip\@tempdima
-%      \hskip -\leftskip
-%      #1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
-%    \endgroup
-%  \fi}
-
-
+\ifdefined\@notes
 \cftsetindents{section}{2.3cm}{0.7cm}
 \cftsetindents{subsection}{3.2cm}{1.0cm}
-
 \newlength{\@lectocoffset}
 \setlength{\@lectocoffset}{2pt}
 \newcommand*\l@lecture[2]{%
@@ -427,7 +440,7 @@
       \small\color{gray}\fontfamily{phv}\fontseries{b}\fontshape{sc}\selectfont#1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss }\par\vspace{-\@lectocoffset}
     \endgroup
   }
-
+\fi
 
 
 
