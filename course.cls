@@ -30,14 +30,26 @@
 \RequirePackage{mdframed}  
 \RequirePackage{placeins}
 \RequirePackage{tabularx}
-\RequirePackage{tcolorbox}
+\RequirePackage[breakable]{tcolorbox}
 \RequirePackage{textcomp}
 \RequirePackage{textpos}
 \RequirePackage{titlesec}
 \RequirePackage{titletoc}
 \RequirePackage{tocloft}
 \RequirePackage{url}
+\RequirePackage{wrapfig}
 \RequirePackage{xr}                             % ability to reference external documents
+
+%
+% These three lines fix an error introduced with titlesec when upgrading LaTeX 
+% where the (sub)(sub)(sections) appeared without numbers. This fix was added
+% on April 11 2017 per instructions here:
+% http://tex.stackexchange.com/questions/299969/titlesec-loss-of-section-numbering-with-the-new-update-2016-03-15
+%
+\RequirePackage{etoolbox}
+\patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{}
+\patchcmd{\ttlh@hang}{\noindent}{}{}{}
+
 
 %
 % METADATA MACROS 
@@ -59,7 +71,9 @@
 
 \ifdefined\@exam
 \newcommand{\examname}[1]{\def\@examname{#1}}
-\newcommand{\givendate}[1]{\def\@givendate{#1}}
+\newcommand{\givendate}[2][]{
+  \ifthenelse{\equal{#1}{}}{\def\@shortgivendate{#2}}{\def\@shortgivendate{#1}}
+  \def\@givendate{#2}}
 \newcommand{\instructions}[1]{\def\@instructions{#1}}
 \newcommand{\results}[1]{\def\@results{#1}}
 \newcommand{\examnotes}[1]{\def\@examnotes{#1}}
@@ -87,9 +101,10 @@
 \renewcommand{\footrulewidth}{0.4pt}
 % Table of contents customization
 \setcounter{tocdepth}{2}
-\setlength{\cftbeforesecskip}{2pt}\setlength{\cftbeforesubsecskip}{2pt}
+\setlength{\cftbeforesecskip}{2pt}\setlength{\cftbeforesubsecskip}{2pt}\setlength{\cftbeforesubsubsecskip}{2pt}
 \cftsetpnumwidth{2em} % fix so that long page numbers don't overflow to the right
 \cftsetindents{subsection}{1cm}{1cm}
+\cftsetindents{subsubsection}{4.5cm}{1cm}
 % Paragraph flow
 \widowpenalties 1 1000 % no page breaks in the middle of paragraphs
 \setlength\parindent{0cm}
@@ -192,40 +207,40 @@
 %
 \fancypagestyle{none-fancy}
 {
-  \lhead{\@name\\\@institution}
+  \lhead{\small{\bf \@name}\\\@institution}
   \chead{}
-  \rhead{\\ \@webpage}
-  \lfoot{\@copyright}
-  \cfoot{}\rfoot{\thepage}
+  \rhead{\small\\ \@webpage}
+  \lfoot{\small\@copyright}
+  \cfoot{}\rfoot{\small\thepage}
 }
 \fancypagestyle{none-plain}
 {
   \rhead{} 
   \chead{} 
   \lhead{}
-  \lfoot{\@copyright}
+  \lfoot{\small\@copyright}
   \cfoot{}
-  \rfoot{\thepage}
+  \rfoot{\small\thepage}
 }
 \pagestyle{none-fancy}
 
 \ifdefined\@notes 
 \fancypagestyle{notes-fancy}
 {
-  \lhead{\@name\\\@institution}
+  \lhead{\small{\bf\@name}\\\@institution}
   \chead{}
-  \rhead{Course Notes\\ \@webpage}
-  \lfoot{\@copyright}
-  \cfoot{}\rfoot{\thepage}
+  \rhead{\small{\bf Course Notes}\\ \@webpage}
+  \lfoot{\small\@copyright}
+  \cfoot{}\rfoot{\small\thepage}
 }
 \fancypagestyle{notes-plain}
 {
   \rhead{} 
   \chead{} 
   \lhead{}
-  \lfoot{\@copyright}
+  \lfoot{\small\@copyright}
   \cfoot{}
-  \rfoot{\thepage}
+  \rfoot{\small\thepage}
 }
 \pagestyle{notes-fancy}
 \tocloftpagestyle{notes-plain}
@@ -237,20 +252,20 @@
   \rhead{} 
   \chead{} 
   \lhead{}
-  \lfoot{\@copyright}
+  \lfoot{\small\@copyright}
   \cfoot{}
-  \rfoot{\thepage/\pageref{LastPage}}
+  \rfoot{\small\thepage/\pageref{LastPage}}
 }
 \fancypagestyle{hw-fancy}
 {
-  \lhead{\@name\\\@institution}
+  \lhead{\small{\bf\@name}\\\@institution}
   \chead{} 
-  \rhead{
-    \@hwtitle \ifdefined\Solutions\ Solutions \fi \\ 
+  \rhead{\small
+    {\bf \@hwtitle \ifdefined\Solutions\ Solutions \fi} \\ 
     \ifdefined\@shortduedate Due: \@shortduedate\fi} 
-  \lfoot{\@copyright}
+  \lfoot{\small\@copyright}
   \cfoot{}
-  \rfoot{\thepage/\pageref{LastPage}}
+  \rfoot{\small\thepage/\pageref{LastPage}}
 }
 \pagestyle{hw-fancy}
 \tocloftpagestyle{hw-plain}
@@ -262,20 +277,20 @@
   \rhead{} 
   \chead{} 
   \lhead{}
-  \lfoot{\@copyright}
+  \lfoot{\small\@copyright}
   \cfoot{}
-  \rfoot{\thepage/\pageref{LastPage}}
+  \rfoot{\small\thepage/\pageref{LastPage}}
 }
 \fancypagestyle{exam-fancy}
 {
-  \lhead{\@name\\\@institution}
+  \lhead{\small{\bf\@name}\\\@institution}
   \chead{} 
-  \rhead{
-    \@examname \ifdefined\Solutions\ Solutions \fi \\ 
-    \ifdefined\@givendate\@givendate\fi} 
-  \lfoot{\@copyright}
+  \rhead{\small
+    {\bf\@examname \ifdefined\Solutions\ Solutions \fi} \\ 
+    \ifdefined\@shortgivendate\@shortgivendate\fi} 
+  \lfoot{\small\@copyright}
   \cfoot{}
-  \rfoot{\thepage/\pageref{LastPage}}
+  \rfoot{\small\thepage/\pageref{LastPage}}
 }
 \pagestyle{exam-fancy}
 \tocloftpagestyle{exam-plain}
@@ -287,20 +302,20 @@
   \rhead{} 
   \chead{} 
   \lhead{}
-  \lfoot{\@copyright}
+  \lfoot{\small\@copyright}
   \cfoot{}
-  \rfoot{\thepage}
+  \rfoot{\small\thepage}
 }
 \fancypagestyle{syllabus-fancy}
 {
-  \lhead{\@name\\\@institution}
+  \lhead{\small{\bf \@name}\\\@institution}
   \chead{} 
-  \rhead{
-    Syllabus - \@date \\ 
+  \rhead{\small
+    {\bf Syllabus - \@date}\\ 
     \@webpage} 
-  \lfoot{\@copyright}
+  \lfoot{\small\@copyright}
   \cfoot{}
-  \rfoot{\thepage}
+  \rfoot{\small\thepage}
 }
 \pagestyle{syllabus-fancy}
 \fi
@@ -333,7 +348,7 @@
   \stepcounter{lecture}
   %\pagestyle{notes-fancy}
   \thispagestyle{notes-plain}
-  \rhead{Course Notes - Lecture \thelecture \\ \@webpage}
+  \rhead{\small{\bf Course Notes - Lecture \thelecture} \\ \@webpage}
   \renewcommand\thepage{\thelecture.\arabic{page}}
   \begin{minipage}{\linewidth}
     \vspace{-1.4cm}
@@ -358,7 +373,7 @@
 % 
 \newtheorem{example}{Example}
 \numberwithin{example}{section}
-\renewenvironment{example}[1][]
+\renewenvironment{example}[1]
 {
   \vspace{.25cm}
   \begin{mdframed}[backgroundcolor=gray!80,linewidth=2pt,innertopmargin=4pt,innerbottommargin=2pt,outermargin=0pt,topline=false,bottomline=true,leftline=false,rightline=false]
@@ -372,6 +387,19 @@
   \end{mdframed}
   \vspace{.25cm}
 }
+\newenvironment{example*}[1][]
+{
+  \vspace{.25cm}
+  \begin{mdframed}[backgroundcolor=gray!80,linewidth=2pt,innertopmargin=4pt,innerbottommargin=2pt,outermargin=0pt,topline=false,bottomline=true,leftline=false,rightline=false]
+    {\bf Example \theexample\ Continued}
+  \end{mdframed}\nopagebreak
+  \begin{mdframed}[backgroundcolor=gray!10,linewidth=1pt,outermargin=0pt,topline=false,bottomline=true,leftline=false,rightline=false]
+  }
+  { 
+  \end{mdframed}
+  \vspace{.25cm}
+}
+
 
 \newcounter{problem}
 
@@ -409,14 +437,18 @@
 %
 % SOLUTION ENVIRONMENT
 %
-\NewEnviron{solution}{
+\define@key{mykeys}{width}{\def\envwidth{#1}}%
+\NewEnviron{solution}[1][]{
+  \setkeys{mykeys}{width=\linewidth,#1}
     \ifdefined\Solutions
     \begin{subequations}
     \renewcommand{\theequation}{$^*$\theproblem\alph{subproblem}.\arabic{equation}}
-    \begin{mdframed}[backgroundcolor=gray!20,linewidth=1pt,outermargin=0pt,skipabove=2pt,topline=false,bottomline=false,leftline=false,rightline=false]
+    \begin{tcolorbox}[width=\envwidth,breakable]
+      %\begin{mdframed}[userdefinedwidth=0.5\linewidth,backgroundcolor=gray!20,linewidth=1pt,outermargin=0pt,skipabove=2pt,topline=false,bottomline=false,leftline=false,rightline=false]
       \noindent {\bf Solution} \\
       \BODY
-    \end{mdframed}
+    %\end{mdframed}
+    \end{tcolorbox}
     \renewcommand{\theequation}{\theproblem\alph{subproblem}.\arabic{equation}} 
   \end{subequations}
   \addtocounter{equation}{-1}
