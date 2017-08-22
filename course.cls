@@ -30,7 +30,7 @@
 \RequirePackage{mdframed}  
 \RequirePackage{placeins}
 \RequirePackage{tabularx}
-\RequirePackage[breakable]{tcolorbox}
+\RequirePackage[breakable,most]{tcolorbox}
 \RequirePackage{textcomp}
 \RequirePackage{textpos}
 \RequirePackage{titlesec}
@@ -39,6 +39,18 @@
 \RequirePackage{url}
 \RequirePackage{wrapfig}
 \RequirePackage{xr}                             % ability to reference external documents
+
+
+
+\RequirePackage[rm]{roboto}
+\RequirePackage[T1]{fontenc}
+
+%
+% COLORS
+%
+%\definecolor{uccsgold}{hrml}{#cfb87c}
+\definecolor{uccsgold}{HTML}{CFB87C}
+\definecolor{uccsgray}{HTML}{DDDDDD}
 
 %
 % These three lines fix an error introduced with titlesec when upgrading LaTeX 
@@ -130,11 +142,11 @@
 \renewcommand\maketitle
 {
   \thispagestyle{syllabus-plain}
-  \begin{center}
-    {\LARGE \bf \@name} \\
-    \vspace{5pt}{\LARGE \bf Syllabus}
-  \end{center}
-  \noindent\rule{\textwidth}{0.5pt}
+  \begin{tcolorbox}[enhanced jigsaw,arc=0pt,boxrule=0pt,borderline west={5pt}{0pt}{uccsgold},colback=uccsgray]
+    {\LARGE \bf  \robotoslab \@name} 
+
+    \vspace{10pt}\vspace{5pt}{\LARGE \bf \robotoslab Syllabus}
+ \end{tcolorbox}
 }
 \fi
 % Course Notes
@@ -142,11 +154,18 @@
 \renewcommand\maketitle
 {
   \thispagestyle{notes-plain}
-  \begin{center}
-    {\LARGE \bf \@name} \\
-    \vspace{5pt}{\LARGE \bf Course Notes}
-  \end{center}
-  \noindent\rule{\textwidth}{0.5pt}
+  \begin{tcolorbox}[enhanced jigsaw,arc=0pt,boxrule=0pt,borderline west={5pt}{0pt}{uccsgold},colback=uccsgray]
+    {\LARGE \bf  \robotoslab \@name} 
+
+    \vspace{10pt}{\LARGE \bf \robotoslab Course Notes}
+
+    \ifdefined\@author \vspace{10pt}{\bf \@author} \fi
+  \end{tcolorbox}
+%  \begin{center}
+%    {\LARGE \bf \@name} \\
+%    \vspace{5pt}{\LARGE \bf Course Notes}
+%  \end{center}
+%  \noindent\rule{\textwidth}{0.5pt}
 }
 \fi
 % Homework
@@ -154,22 +173,26 @@
 \renewcommand\maketitle
 {
   \thispagestyle{hw-plain}
-  \begin{center}
-    {\LARGE \bf \@name} \\
-    \vspace{5pt}{\LARGE \bf \@hwtitle \ifdefined\Solutions\ Solutions \fi}
+  \begin{tcolorbox}[enhanced jigsaw,arc=0pt,boxrule=0pt,borderline west={5pt}{0pt}{uccsgold},colback=uccsgray]
+    {\LARGE \bf  \robotoslab \@name} 
+
+    \vspace{10pt}{\LARGE \bf \robotoslab \@hwtitle \ifdefined\Solutions\ Solutions \fi}
 
     \ifdefined\@duedate
     \vspace{0.5cm}
-    \ifdefined\@assigneddate{\large Assigned: \@assigneddate}\\ \fi 
-    \vspace{1pt}{\large \bf Due: \@duedate}
+    \ifdefined\@assigneddate{ Assigned: \@assigneddate} \fi 
+
+    \vspace{1pt}{ \bf Due: \@duedate}
     \fi
 
     \ifdefined\@hwnotes
     \vspace{0.5cm}
-    {\large \@hwnotes}
-    \fi
-  \end{center}
-  \noindent\rule{\textwidth}{0.5pt}
+    {\@hwnotes}
+    \fi    
+  \end{tcolorbox}
+%  \begin{center}
+%  \end{center}
+%  \noindent\rule{\textwidth}{0.5pt}
 }
 \fi
 % Exam
@@ -215,6 +238,7 @@
 }
 \fancypagestyle{none-plain}
 {
+  \renewcommand{\headrulewidth}{0pt}
   \rhead{} 
   \chead{} 
   \lhead{}
@@ -235,6 +259,7 @@
 }
 \fancypagestyle{notes-plain}
 {
+  \renewcommand{\headrulewidth}{0pt}
   \rhead{} 
   \chead{} 
   \lhead{}
@@ -249,6 +274,7 @@
 \ifdefined\@homework
 \fancypagestyle{hw-plain}
 {
+  \renewcommand{\headrulewidth}{0pt}
   \rhead{} 
   \chead{} 
   \lhead{}
@@ -274,6 +300,7 @@
 \ifdefined\@exam
 \fancypagestyle{exam-plain}
 {
+  \renewcommand{\headrulewidth}{0pt}
   \rhead{} 
   \chead{} 
   \lhead{}
@@ -299,6 +326,7 @@
 \ifdefined\@syllabus
 \fancypagestyle{syllabus-plain}
 {
+  \renewcommand{\headrulewidth}{0pt}
   \rhead{} 
   \chead{} 
   \lhead{}
@@ -350,11 +378,16 @@
   \thispagestyle{notes-plain}
   \rhead{\small{\bf Course Notes - Lecture \thelecture} \\ \@webpage}
   \renewcommand\thepage{\thelecture.\arabic{page}}
-  \begin{minipage}{\linewidth}
-    \vspace{-1.4cm}
-    \begin{minipage}{0.20\linewidth}\begin{tcolorbox}[width=\linewidth,height=1cm,arc=0pt,boxsep=0pt,colback=black]\vfill\color{white}\bf\Large {Lecture \thelecture}\vfill\end{tcolorbox}\end{minipage}
-    \begin{minipage}{0.80\linewidth}\begin{tcolorbox}[width=\linewidth,height=1cm,arc=0pt,boxsep=0pt,grow to left by=5pt,grow to right by=-2pt]\bf\Large {#1}\end{tcolorbox}\end{minipage}
-  \end{minipage}
+
+  \begin{tcolorbox}[enhanced jigsaw,arc=0pt,boxrule=0pt,borderline west={5pt}{0pt}{uccsgold},colback=uccsgray]
+    {\Large \bf  \robotoslab Lecture \thelecture: #1}
+  \end{tcolorbox}
+
+%  \begin{minipage}{\linewidth}
+%    \vspace{-1.4cm}
+%    \begin{minipage}{0.20\linewidth}\begin{tcolorbox}[width=\linewidth,height=1cm,arc=0pt,boxsep=0pt,colback=black]\vfill\color{white}\bf\Large {Lecture \thelecture}\vfill\end{tcolorbox}\end{minipage}
+%    \begin{minipage}{0.80\linewidth}\begin{tcolorbox}[width=\linewidth,height=1cm,arc=0pt,boxsep=0pt,grow to left by=5pt,grow to right by=-2pt]\bf\Large {#1}\end{tcolorbox}\end{minipage}
+%  \end{minipage}
   \nopagebreak\par\vspace{1em}\nopagebreak
   \addtocontents{toc}{\protect\pagebreak[1]}
   \addcontentsline{toc}{lecture}{Lecture \thelecture}
@@ -373,7 +406,7 @@
 % 
 \newtheorem{example}{Example}
 \numberwithin{example}{section}
-\renewenvironment{example}[1]
+\renewenvironment{example}[1][]
 {
   \vspace{.25cm}
   \begin{mdframed}[backgroundcolor=gray!80,linewidth=2pt,innertopmargin=4pt,innerbottommargin=2pt,outermargin=0pt,topline=false,bottomline=true,leftline=false,rightline=false]
