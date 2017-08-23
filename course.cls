@@ -50,7 +50,7 @@
 %
 %\definecolor{uccsgold}{hrml}{#cfb87c}
 \definecolor{uccsgold}{HTML}{CFB87C}
-\definecolor{uccsgray}{HTML}{DDDDDD}
+\definecolor{uccsgray}{HTML}{ECECEC}
 
 %
 % These three lines fix an error introduced with titlesec when upgrading LaTeX 
@@ -379,15 +379,23 @@
   \rhead{\small{\bf Course Notes - Lecture \thelecture} \\ \@webpage}
   \renewcommand\thepage{\thelecture.\arabic{page}}
 
-  \begin{tcolorbox}[enhanced jigsaw,arc=0pt,boxrule=0pt,borderline west={5pt}{0pt}{uccsgold},colback=uccsgray]
-    {\Large \bf  \robotoslab Lecture \thelecture: #1}
+  \begin{tcolorbox}[
+    enhanced jigsaw,
+    arc=0pt,
+    boxrule=1pt,
+    borderline west={3.5cm}{0pt}{black},
+    borderline west={3pt}{3.5cm}{uccsgold},
+    borderline north={1pt}{0pt}{black},
+    borderline south={1pt}{0pt}{black},
+    colback=uccsgray]
+    \begin{minipage}[c]{3.5cm}
+    {\color{white}\Large \bf  \robotoslab Lecture \thelecture}
+    \end{minipage}
+    \begin{minipage}[c]{13cm}
+    {\Large \bf  \robotoslab #1}
+    \end{minipage}
   \end{tcolorbox}
 
-%  \begin{minipage}{\linewidth}
-%    \vspace{-1.4cm}
-%    \begin{minipage}{0.20\linewidth}\begin{tcolorbox}[width=\linewidth,height=1cm,arc=0pt,boxsep=0pt,colback=black]\vfill\color{white}\bf\Large {Lecture \thelecture}\vfill\end{tcolorbox}\end{minipage}
-%    \begin{minipage}{0.80\linewidth}\begin{tcolorbox}[width=\linewidth,height=1cm,arc=0pt,boxsep=0pt,grow to left by=5pt,grow to right by=-2pt]\bf\Large {#1}\end{tcolorbox}\end{minipage}
-%  \end{minipage}
   \nopagebreak\par\vspace{1em}\nopagebreak
   \addtocontents{toc}{\protect\pagebreak[1]}
   \addcontentsline{toc}{lecture}{Lecture \thelecture}
