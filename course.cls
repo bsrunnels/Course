@@ -112,7 +112,6 @@
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
 % Table of contents customization
-\setcounter{tocdepth}{2}
 \setlength{\cftbeforesecskip}{2pt}\setlength{\cftbeforesubsecskip}{2pt}\setlength{\cftbeforesubsubsecskip}{2pt}
 \cftsetpnumwidth{2em} % fix so that long page numbers don't overflow to the right
 \cftsetindents{subsection}{1cm}{1cm}
@@ -367,6 +366,7 @@
 \newcounter{lecture}
 \newcounter{tempsec}\setcounter{tempsec}{888}
 \newcounter{tempsubsec}\setcounter{tempsubsec}{888}
+\newcounter{tempsubsubsec}\setcounter{tempsubsubsec}{888}
 \newenvironment{lecture}[1][]
 {
   \clearpage\pagebreak\newpage
@@ -401,10 +401,16 @@
   \addcontentsline{toc}{lecture}{Lecture \thelecture}
   \addtocontents{toc}{\protect\nopagebreak[4]\vspace{-\baselineskip}}
 }{
-  \ifthenelse{\value{tempsec}=\value{section} \AND \value{tempsubsec}=\value{subsection}}
+
+  \ifthenelse{\value{tocdepth}=2 \AND \value{tempsec}=\value{section} \AND \value{tempsubsec}=\value{subsection}}
   {\addtocontents{toc}{\protect\nopagebreak[4]\vspace{\baselineskip}}}{}
+
+  \ifthenelse{\value{tocdepth}=3 \AND \value{tempsec}=\value{section} \AND \value{tempsubsec}=\value{subsection} \AND \value{tempsubsubsec}=\value{subsubsection}}
+  {\addtocontents{toc}{\protect\nopagebreak[4]\vspace{\baselineskip}}}{}
+
   \setcounter{tempsec}{\arabic{section}}
   \setcounter{tempsubsec}{\arabic{subsection}}
+  \setcounter{tempsubsubsec}{\arabic{subsubsection}}
   \renewcommand\thepage{\thelecture.\arabic{page}}
   \clearpage
 }
