@@ -189,9 +189,6 @@
     {\@hwnotes}
     \fi    
   \end{tcolorbox}
-%  \begin{center}
-%  \end{center}
-%  \noindent\rule{\textwidth}{0.5pt}
 }
 \fi
 % Exam
@@ -199,9 +196,9 @@
 \renewcommand\maketitle
 {
   \thispagestyle{exam-plain}
-  \begin{center}
-    {\LARGE \bf \@name} \\
-    \vspace{5pt}{\LARGE \bf \@examname \ifdefined\Solutions\ Solutions \fi}
+  \begin{tcolorbox}[enhanced jigsaw,arc=0pt,boxrule=0pt,borderline west={5pt}{0pt}{uccsgold},colback=uccsgray]
+    {\LARGE \bf \robotoslab \@name} \\
+    \vspace{10pt}{\LARGE \bf \robotoslab \@examname \ifdefined\Solutions\ Solutions \fi}
 
     \ifdefined\@givendate
     \vspace{0.5cm}
@@ -212,8 +209,7 @@
     \vspace{0.5cm}
     {\large \@examnotes}
     \fi
-  \end{center}
-  \noindent\rule{\textwidth}{0.5pt}
+  \end{tcolorbox}
   \ifdefined\Solutions
   \ifdefined\@results \vfill\@results\vfill \newpage \fi
   \else
