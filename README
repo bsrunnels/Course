@@ -1,0 +1,8 @@
+
+(1) Change directory name
+(2) Change debian/changelog file
+(3) Build (in subdirectory)
+    debuild -S -sa -k4CDCBD29
+(4) Upload (in main directory) with
+    dput ppa:solidsuccs/latexpackages *.changes
+

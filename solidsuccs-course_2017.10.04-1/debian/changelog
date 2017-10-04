@@ -1,0 +1,12 @@
+solidsuccs-course (2017.10.04-1) xenial; urgency=medium
+
+  * Updated version numbering scheme
+
+ -- brunnels <brunnels@uccs.edu>  Wed, 04 Oct 2017 08:49:00 -0600
+
+solidsuccs-course (0.1-1) xenial; urgency=medium
+
+  * Initial release 
+
+ -- brunnels <brunnels@uccs.edu>  Tue, 03 Oct 2017 13:47:57 -0600
+

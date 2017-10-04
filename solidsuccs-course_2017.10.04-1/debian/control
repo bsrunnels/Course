@@ -1,0 +1,14 @@
+Source: solidsuccs-course
+Section: base
+Priority: optional
+Maintainer: brunnels <brunnels@uccs.edu>
+Build-Depends: debhelper (>=9)
+Standards-Version: 3.9.6
+Homepage: <insert the upstream URL, if relevant>
+Vcs-Git: git@github.com:bsrunnels/course.git
+
+Package: solidsuccs-course
+Architecture: any
+Depends: texlive-full
+Description: Install course Latex class file
+
