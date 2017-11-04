@@ -519,3 +519,46 @@
 
 
 
+%
+% Macros
+%
+
+\graphicspath{{figures/}}
+
+\def\currentpath{figures}
+
+\newcommand{\includeproblem}[1]{
+  \def\currentpath{#1}
+  \graphicspath{{\currentpath/}}
+  \refstepcounter{problem}\label{pr:#1}
+  \input{\currentpath/problem.tex}
+  \def\currentpath{figures}
+}
+\newcommand{\ID}{\mathtt{I}}
+
+\newcommand{\documentproblem}[1]{
+  \def\currentpath{#1}
+  \graphicspath{{\currentpath/}}
+  \refstepcounter{problem}\label{pr:#1}
+  \input{\currentpath/problem.tex}
+  \par{\bf Tag:} \texttt{\detokenize{#1}}
+  \def\currentpath{figures}
+}
+
+\newcommand{\Fig}[1]{{\begin{center} \normalsize \input \currentpath/#1 \end{center}}}
+
+\newcommand{\bmx}[1]{\begin{bmatrix}#1\end{bmatrix}}
+\newcommand{\tr}{\operatorname{tr}}
+\renewcommand{\div}{\operatorname{div}}
+\newcommand{\grad}{\operatorname{grad}}
+\newcommand{\curl}{\operatorname{curl}}
+\newcommand{\Div}{\operatorname{Div}}
+\newcommand{\Grad}{\operatorname{Grad}}
+\newcommand{\Curl}{\operatorname{Curl}}
+
+\newtheorem{theorem}{Theorem}
+\numberwithin{theorem}{section}
+\newtheorem{lemma}{Lemma}
+\numberwithin{lemma}{section}
+\renewcommand{\sc}{\fontfamily{phv}\fontshape{sc}\selectfont}
+\numberwithin{figure}{section}
