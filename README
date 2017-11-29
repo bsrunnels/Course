@@ -1,8 +1,8 @@
 
 (1) Change directory name
 (2) Change debian/changelog file
-(3) Build (in subdirectory)
+(3) Build (in subdirectory) (gpg --list-keys to get gpg key)
     debuild -S -sa -k7F424851
 (4) Upload (in main directory) with
     dput ppa:solidsuccs/latexpackages *.changes
-
+(5) Add and commit changes to Git repository once upload is successful

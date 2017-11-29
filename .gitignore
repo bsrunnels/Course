@@ -3,3 +3,4 @@
 *.changes
 *.upload
 *.tar.gz
+*.log

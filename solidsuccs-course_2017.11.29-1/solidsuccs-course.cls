@@ -416,31 +416,48 @@
 % 
 \newtheorem{example}{Example}
 \numberwithin{example}{section}
+%\renewenvironment{example}[1][]
+%{
+%  \vspace{.25cm}
+%  \begin{mdframed}[backgroundcolor=gray!80,linewidth=2pt,innertopmargin=4pt,innerbottommargin=2pt,outermargin=0pt,topline=false,bottomline=true,leftline=false,rightline=false]
+%    {\bf Example \theexample}\nopagebreak\refstepcounter{example}
+%    \ifthenelse{\equal{#1}{}}{}{{\bf: #1}}
+%  \end{mdframed}
+%  \begin{mdframed}[backgroundcolor=gray!10,linewidth=1pt,outermargin=0pt,topline=false,bottomline=true,leftline=false,rightline=false]
+%  }
+%  { 
+%  \end{mdframed}
+%  \vspace{.25cm}
+%}
+%\newenvironment{example*}[1][]
+%{
+%  \vspace{.25cm}
+%  \begin{mdframed}[backgroundcolor=gray!80,linewidth=2pt,innertopmargin=4pt,innerbottommargin=2pt,outermargin=0pt,topline=false,bottomline=true,leftline=false,rightline=false]
+%    {\bf Example \theexample\ Continued}
+%  \end{mdframed}\nopagebreak
+%  \begin{mdframed}[backgroundcolor=gray!10,linewidth=1pt,outermargin=0pt,topline=false,bottomline=true,leftline=false,rightline=false]
+%  }
+%  { 
+%  \end{mdframed}
+%  \vspace{.25cm}
+%}
 \renewenvironment{example}[1][]
 {
-  \vspace{.25cm}
-  \begin{mdframed}[backgroundcolor=gray!80,linewidth=2pt,innertopmargin=4pt,innerbottommargin=2pt,outermargin=0pt,topline=false,bottomline=true,leftline=false,rightline=false]
-    \refstepcounter{example}
-    {\bf Example \theexample}
-    \ifthenelse{\equal{#1}{}}{}{{\bf: #1}}
-  \end{mdframed}\nopagebreak
-  \begin{mdframed}[backgroundcolor=gray!10,linewidth=1pt,outermargin=0pt,topline=false,bottomline=true,leftline=false,rightline=false]
+  \stepcounter{example}
+  \begin{tcolorbox}[breakable,colback=gray!10!white,colframe=black,
+    coltitle=black,colbacktitle=gray!70,title=\textbf{Example \theexample\ifthenelse{\equal{#1}{}}{}{{\bf: #1}}}]
+    \addtocounter{example}{-1}\refstepcounter{example}
   }
   { 
-  \end{mdframed}
-  \vspace{.25cm}
+  \end{tcolorbox}
 }
 \newenvironment{example*}[1][]
 {
-  \vspace{.25cm}
-  \begin{mdframed}[backgroundcolor=gray!80,linewidth=2pt,innertopmargin=4pt,innerbottommargin=2pt,outermargin=0pt,topline=false,bottomline=true,leftline=false,rightline=false]
-    {\bf Example \theexample\ Continued}
-  \end{mdframed}\nopagebreak
-  \begin{mdframed}[backgroundcolor=gray!10,linewidth=1pt,outermargin=0pt,topline=false,bottomline=true,leftline=false,rightline=false]
+  \begin{tcolorbox}[colback=gray!10!white,colframe=black,
+    coltitle=black,colbacktitle=gray!70,title=\textbf{Example \theexample\ Continued}]
   }
   { 
-  \end{mdframed}
-  \vspace{.25cm}
+  \end{tcolorbox}
 }
 
 
