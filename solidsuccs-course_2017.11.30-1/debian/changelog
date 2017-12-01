@@ -1,3 +1,12 @@
+solidsuccs-course (2017.11.30-1) xenial; urgency=medium
+
+	* Fixed title formatting issue in Exam title
+	* Fixed missing breakable option in example* environment
+	* Updated to "enhanced" tcolorboxes
+
+ -- brunnels <brunnels@uccs.edu>  Thu, 30 Nov 2017 14:34:00 -0600
+
+
 solidsuccs-course (2017.11.29-1) xenial; urgency=medium
 
   * Updated example environment to tcolobox and fixed referencing issue 

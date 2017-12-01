@@ -197,7 +197,8 @@
 {
   \thispagestyle{exam-plain}
   \begin{tcolorbox}[enhanced jigsaw,arc=0pt,boxrule=0pt,borderline west={5pt}{0pt}{uccsgold},colback=uccsgray]
-    {\LARGE \bf \robotoslab \@name} \\
+    {\LARGE \bf \robotoslab \@name} 
+
     \vspace{10pt}{\LARGE \bf \robotoslab \@examname \ifdefined\Solutions\ Solutions \fi}
 
     \ifdefined\@givendate
@@ -444,7 +445,7 @@
 \renewenvironment{example}[1][]
 {
   \stepcounter{example}
-  \begin{tcolorbox}[breakable,colback=gray!10!white,colframe=black,
+  \begin{tcolorbox}[breakable,enhanced,colback=gray!10!white,colframe=black,
     coltitle=black,colbacktitle=gray!70,title=\textbf{Example \theexample\ifthenelse{\equal{#1}{}}{}{{\bf: #1}}}]
     \addtocounter{example}{-1}\refstepcounter{example}
   }
@@ -453,13 +454,12 @@
 }
 \newenvironment{example*}[1][]
 {
-  \begin{tcolorbox}[colback=gray!10!white,colframe=black,
+  \begin{tcolorbox}[breakable,enhanced,colback=gray!10!white,colframe=black,
     coltitle=black,colbacktitle=gray!70,title=\textbf{Example \theexample\ Continued}]
   }
   { 
   \end{tcolorbox}
 }
-
 
 \newcounter{problem}
 
@@ -503,7 +503,7 @@
     \ifdefined\Solutions
     \begin{subequations}
     \renewcommand{\theequation}{$^*$\theproblem\alph{subproblem}.\arabic{equation}}
-    \begin{tcolorbox}[width=\envwidth,breakable]
+    \begin{tcolorbox}[width=\envwidth,breakable,enhanced]
       %\begin{mdframed}[userdefinedwidth=0.5\linewidth,backgroundcolor=gray!20,linewidth=1pt,outermargin=0pt,skipabove=2pt,topline=false,bottomline=false,leftline=false,rightline=false]
       \noindent {\bf Solution} \\
       \BODY
