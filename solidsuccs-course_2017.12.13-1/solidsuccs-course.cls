@@ -125,6 +125,18 @@
 \hypersetup{pdfborder={0 0 0}}
 
 %
+% CLEARDOUBLEPAGE
+%
+\let\origdoublepage\cleardoublepage
+\newcommand{\clearemptydoublepage}{%
+  \clearpage
+  {\pagestyle{empty}\origdoublepage}%
+  \addtocounter{page}{-1}
+}
+\let\cleardoublepage\clearemptydoublepage
+
+
+%
 % TITLE PAGE CUSTOMIZATION
 %
 % Miscellaneous
@@ -366,7 +378,7 @@
 \newcounter{tempsubsubsec}\setcounter{tempsubsubsec}{888}
 \newenvironment{lecture}[1][]
 {
-  \clearpage\pagebreak\newpage
+  \cleardoublepage
   \FloatBarrier 
   \phantomsection
   \setcounter{page}{1}
@@ -415,36 +427,16 @@
 % 
 % EXAMPLE ENVIRONMANT
 % 
-\newtheorem{example}{Example}
+%\newtheorem{example}{Example}
+%\newcounter{example}
+\newcommand{\listexamplename}{\bf \Large Examples}
+\newlistof{example}{exp}{\listexamplename}
 \numberwithin{example}{section}
-%\renewenvironment{example}[1][]
-%{
-%  \vspace{.25cm}
-%  \begin{mdframed}[backgroundcolor=gray!80,linewidth=2pt,innertopmargin=4pt,innerbottommargin=2pt,outermargin=0pt,topline=false,bottomline=true,leftline=false,rightline=false]
-%    {\bf Example \theexample}\nopagebreak\refstepcounter{example}
-%    \ifthenelse{\equal{#1}{}}{}{{\bf: #1}}
-%  \end{mdframed}
-%  \begin{mdframed}[backgroundcolor=gray!10,linewidth=1pt,outermargin=0pt,topline=false,bottomline=true,leftline=false,rightline=false]
-%  }
-%  { 
-%  \end{mdframed}
-%  \vspace{.25cm}
-%}
-%\newenvironment{example*}[1][]
-%{
-%  \vspace{.25cm}
-%  \begin{mdframed}[backgroundcolor=gray!80,linewidth=2pt,innertopmargin=4pt,innerbottommargin=2pt,outermargin=0pt,topline=false,bottomline=true,leftline=false,rightline=false]
-%    {\bf Example \theexample\ Continued}
-%  \end{mdframed}\nopagebreak
-%  \begin{mdframed}[backgroundcolor=gray!10,linewidth=1pt,outermargin=0pt,topline=false,bottomline=true,leftline=false,rightline=false]
-%  }
-%  { 
-%  \end{mdframed}
-%  \vspace{.25cm}
-%}
-\renewenvironment{example}[1][]
+\newenvironment{example}[1][]
 {
+  \def\solution{\tcblower}
   \stepcounter{example}
+  \addcontentsline{exp}{example}{{\bf Example \theexample}: #1}
   \begin{tcolorbox}[breakable,enhanced,colback=gray!10!white,colframe=black,
     coltitle=black,colbacktitle=gray!70,title=\textbf{Example \theexample\ifthenelse{\equal{#1}{}}{}{{\bf: #1}}}]
     \addtocounter{example}{-1}\refstepcounter{example}
@@ -454,12 +446,19 @@
 }
 \newenvironment{example*}[1][]
 {
+  \def\solution{\tcblower}
   \begin{tcolorbox}[breakable,enhanced,colback=gray!10!white,colframe=black,
     coltitle=black,colbacktitle=gray!70,title=\textbf{Example \theexample\ Continued}]
   }
   { 
   \end{tcolorbox}
 }
+
+%
+% SIDENOTE ENVIRONMENT
+%
+\newenvironment{sidenote}{\begin{tcolorbox}[enhanced jigsaw,arc=0pt,boxrule=0pt,borderline west={5pt}{0pt}{darkgray}]}{\end{tcolorbox}}
+
 
 \newcounter{problem}
 
