@@ -19,6 +19,7 @@
 \RequirePackage{bm}
 \RequirePackage{booktabs}
 \RequirePackage{cancel}
+\RequirePackage{comment}
 \RequirePackage{enumitem}
 \RequirePackage{fancyhdr}
 \RequirePackage{framed}
@@ -39,6 +40,7 @@
 \RequirePackage{url}
 \RequirePackage{wrapfig}
 \RequirePackage{xr}                             % ability to reference external documents
+\RequirePackage{xstring}
 
 
 
@@ -472,7 +474,7 @@
   \numberwithin{equation}{problem}
   \numberwithin{figure}{problem}
   \renewcommand{\theequation}{\theproblem\alph{subproblem}.\arabic{equation}}
-  \FloatBarrier{\vspace{1.5em}\bf\large Problem \setcounter{subproblem}{0}\setcounter{equation}{0}\theproblem\ifthenelse{\equal{#1}{}}{}{{\bf: #1}}
+  \FloatBarrier{\vspace{1.5em}\bf\large Problem \setcounter{subproblem}{0}\setcounter{subproblem_all}{0}\setcounter{equation}{0}\theproblem\ifthenelse{\equal{#1}{}}{}{{\bf: #1}}
   }\nopagebreak\par\vspace{1em}\nopagebreak
 }
 {
@@ -482,15 +484,33 @@
 % SUBPROBLEM ENVIRONMENT
 %
 \newcounter{subproblem}
+\newcounter{subproblem_all}
 \newenvironment{subproblem}
 {
+  \newboolean{useproblem}
+  \setboolean{useproblem}{false}
+  \refstepcounter{subproblem_all}
+  \ifdefined\includedsubproblems
+  \IfSubStr{\includedsubproblems}{\arabic{subproblem_all}}{\setboolean{useproblem}{true}}
+  \else
+  \setboolean{useproblem}{true}
+  \fi
+
+  \ifuseproblem
   \vspace{-2mm}
   \refstepcounter{subproblem}
   \setcounter{equation}{0}
   \begin{itemize}[style=multiline,labelindent=0pt,leftmargin=40pt]\item[(\theproblem\alph{subproblem})]
+    \else
+    \comment
+  \fi
 }
 {
+  \ifuseproblem
   \end{itemize}\vspace{-2mm}
+  \else
+  \endcomment
+  \fi
 }
 
 %
@@ -543,7 +563,16 @@
 
 \def\currentpath{figures}
 
-\newcommand{\includeproblem}[1]{
+\def\includeproblem{\@ifnextchar[{\@with}{\@without}}
+\def\@with[#1]#2{
+  \def\includedsubproblems{#1}
+  \def\currentpath{#2}
+  \graphicspath{{\currentpath/}}
+  \refstepcounter{problem}\label{pr:#2}
+  \input{\currentpath/problem.tex}
+  \def\currentpath{figures}
+}
+\def\@without#1{
   \def\currentpath{#1}
   \graphicspath{{\currentpath/}}
   \refstepcounter{problem}\label{pr:#1}
