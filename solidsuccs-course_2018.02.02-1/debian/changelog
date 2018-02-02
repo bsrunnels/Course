@@ -1,3 +1,9 @@
+solidsuccs-course (2018.02.02-1) xenial; urgency=medium
+
+	* Updated includeproblem to allow for selective subproblem inclusion
+
+ -- brunnels <brunnels@uccs.edu>  Fri, 02 Feb 2018 11:38:00 -0600
+
 solidsuccs-course (2017.12.13-1) xenial; urgency=medium
 
 	* Updated cleardoublepage for double-side documents
