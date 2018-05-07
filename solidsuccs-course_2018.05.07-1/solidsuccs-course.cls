@@ -11,6 +11,7 @@
 %
 % PACKAGES
 %
+%\RequirePackage{lmodern}
 \RequirePackage[cm]{sfmath}
 \RequirePackage[labelformat=empty]{caption}
 \RequirePackage{amsmath}
@@ -41,7 +42,6 @@
 \RequirePackage{wrapfig}
 \RequirePackage{xr}                             % ability to reference external documents
 \RequirePackage{xstring}
-
 
 
 \RequirePackage[rm]{roboto}
@@ -459,7 +459,7 @@
 %
 % SIDENOTE ENVIRONMENT
 %
-\newenvironment{sidenote}{\begin{tcolorbox}[enhanced jigsaw,arc=0pt,boxrule=0pt,borderline west={5pt}{0pt}{darkgray}]}{\end{tcolorbox}}
+\newenvironment{sidenote}{\begin{tcolorbox}[breakable,enhanced,arc=0pt,boxrule=0pt,borderline west={5pt}{0pt}{darkgray}]}{\end{tcolorbox}}
 
 
 \newcounter{problem}
@@ -579,7 +579,7 @@
   \input{\currentpath/problem.tex}
   \def\currentpath{figures}
 }
-\newcommand{\ID}{\mathtt{I}}
+\newcommand{\ID}{\mathbf{I}}
 
 \newcommand{\documentproblem}[1]{
   \def\currentpath{#1}
@@ -593,13 +593,14 @@
 \newcommand{\Fig}[1]{{\begin{center} \normalsize \input \currentpath/#1 \end{center}}}
 
 \newcommand{\bmx}[1]{\begin{bmatrix}#1\end{bmatrix}}
-\newcommand{\tr}{\operatorname{tr}}
-\renewcommand{\div}{\operatorname{div}}
-\newcommand{\grad}{\operatorname{grad}}
-\newcommand{\curl}{\operatorname{curl}}
-\newcommand{\Div}{\operatorname{Div}}
-\newcommand{\Grad}{\operatorname{Grad}}
-\newcommand{\Curl}{\operatorname{Curl}}
+\newcommand{\tr}{\text{tr}}
+\renewcommand{\div}{\text{div}}
+\newcommand{\grad}{\text{grad}}
+\newcommand{\curl}{\text{curl}}
+\newcommand{\Div}{\text{Div}}
+\newcommand{\Grad}{\text{Grad}}
+\newcommand{\Curl}{\text{Curl}}
+\renewcommand{\det}{\text{det}}
 
 \newtheorem{theorem}{Theorem}
 \numberwithin{theorem}{section}

@@ -1,3 +1,9 @@
+solidsuccs-course (2018.05.07-1) xenial; urgency=medium
+
+	* Updated sidenote to allow breakable boxes 
+
+ -- brunnels <brunnels@uccs.edu>  Mon, 05 May 2018 12:39:00 -0600
+
 solidsuccs-course (2018.02.02-1) xenial; urgency=medium
 
 	* Updated includeproblem to allow for selective subproblem inclusion
