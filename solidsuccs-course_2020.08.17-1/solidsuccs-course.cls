@@ -3,7 +3,7 @@
 \DeclareOption{syllabus}{\def\@syllabus{}}
 \DeclareOption{notes}{\def\@notes{}}
 \DeclareOption{book}{\def\@book{}}
-\DeclareOption{homework}{\def\@homework{}}
+\DeclareOption{problemset}{\def\@problemset{}}
 \DeclareOption{exam}{\def\@exam{}}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
@@ -63,6 +63,8 @@
 %\definecolor{uccsgold}{hrml}{#cfb87c}
 \definecolor{uccsgold}{HTML}{CFB87C}
 \definecolor{uccsgray}{HTML}{ECECEC}
+\newcommand\primarycolor[1]{\definecolor{uccsgold}{HTML}{#1}}
+\newcommand\secondarycolor[1]{\definecolor{uccsgray}{HTML}{#1}}
 
 %
 % These three lines fix an error introduced with titlesec when upgrading LaTeX 
@@ -84,13 +86,13 @@
 \def\@copyright{}  \renewcommand{\copyright}[1]{\def\@copyright{#1}}
 
 
-\ifdefined\@homework
-\newcommand{\hwtitle}[1]{\def\@hwtitle{#1}}
+\ifdefined\@problemset
+\newcommand{\pstitle}[1]{\def\@pstitle{#1}}
 \newcommand{\assigneddate}[1]{\def\@assigneddate{#1}}
 \newcommand{\duedate}[2][]{
   \ifthenelse{\equal{#1}{}}{\def\@shortduedate{#2}}{\def\@shortduedate{#1}}
   \def\@duedate{#2}}
-\newcommand{\hwnotes}[1]{\def\@hwnotes{#1}}
+\newcommand{\psnotes}[1]{\def\@psnotes{#1}}
 \fi
 
 \ifdefined\@exam
@@ -186,15 +188,15 @@
 }
 \fi
 \fi
-% Homework
-\ifdefined\@homework
+% Problem Set
+\ifdefined\@problemset
 \renewcommand\maketitle
 {
-  \thispagestyle{hw-plain}
+  \thispagestyle{ps-plain}
   \begin{tcolorbox}[enhanced jigsaw,arc=0pt,boxrule=0pt,borderline west={5pt}{0pt}{uccsgold},colback=uccsgray]
     {\LARGE \bf  \robotoslab \@name} 
 
-    \vspace{10pt}{\LARGE \bf \robotoslab \@hwtitle \ifdefined\Solutions\ Solutions \fi}
+    \vspace{10pt}{\LARGE \bf \robotoslab \@pstitle \ifdefined\Solutions\ Solutions \fi}
 
     \ifdefined\@duedate
     \vspace{0.5cm}
@@ -203,9 +205,9 @@
     \vspace{1pt}{ \bf Due: \@duedate}
     \fi
 
-    \ifdefined\@hwnotes
+    \ifdefined\@psnotes
     \vspace{0.5cm}
-    {\@hwnotes}
+    {\@psnotes}
     \fi    
   \end{tcolorbox}
 }
@@ -286,8 +288,8 @@
 \tocloftpagestyle{notes-plain}
 \fi
 
-\ifdefined\@homework
-\fancypagestyle{hw-plain}
+\ifdefined\@problemset
+\fancypagestyle{ps-plain}
 {
   \renewcommand{\headrulewidth}{0pt}
   \rhead{} 
@@ -297,19 +299,19 @@
   \cfoot{}
   \rfoot{\small\thepage/\pageref{LastPage}}
 }
-\fancypagestyle{hw-fancy}
+\fancypagestyle{ps-fancy}
 {
   \lhead{\small{\bf\@name}\\\@institution}
   \chead{} 
   \rhead{\small
-    {\bf \@hwtitle \ifdefined\Solutions\ Solutions \fi} \\ 
+    {\bf \@pstitle \ifdefined\Solutions\ Solutions \fi} \\ 
     \ifdefined\@shortduedate Due: \@shortduedate\fi} 
   \lfoot{\small\@copyright}
   \cfoot{}
   \rfoot{\small\thepage/\pageref{LastPage}}
 }
-\pagestyle{hw-fancy}
-\tocloftpagestyle{hw-plain}
+\pagestyle{ps-fancy}
+\tocloftpagestyle{ps-plain}
 \fi
 
 \ifdefined\@exam
