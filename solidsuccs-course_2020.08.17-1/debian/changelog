@@ -1,3 +1,16 @@
+solidsuccs-course (2020.08.17-1) xenial; urgency=low
+
+	* Added book mode that suppresses lectures and publishes as book
+	* Added automatic indexing
+
+ -- brunnels <brunnels@uccs.edu>  Mon, 20 Aug 2020 11:48:00 -0600
+
+solidsuccs-course (2018.08.20-1) xenial; urgency=medium
+
+	* Updated problem environment to add problems to toc
+
+ -- brunnels <brunnels@uccs.edu>  Mon, 20 Aug 2018 17:11:00 -0600
+
 solidsuccs-course (2018.05.07-1) xenial; urgency=medium
 
 	* Updated sidenote to allow breakable boxes 

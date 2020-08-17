@@ -2,11 +2,21 @@
 \ProvidesClass{course}
 \DeclareOption{syllabus}{\def\@syllabus{}}
 \DeclareOption{notes}{\def\@notes{}}
+\DeclareOption{book}{\def\@book{}}
 \DeclareOption{homework}{\def\@homework{}}
 \DeclareOption{exam}{\def\@exam{}}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
+\ifdefined\@book
+\LoadClass{book}
+\let\subparagraph\paragraph
+\let\paragraph\subsubsection
+\let\subsubsection\subsection
+\let\subsection\section
+\let\section\chapter
+\else
 \LoadClass{article}
+\fi
 
 %
 % PACKAGES
@@ -35,7 +45,7 @@
 \RequirePackage[breakable,most]{tcolorbox}
 \RequirePackage{textcomp}
 \RequirePackage{textpos}
-\RequirePackage{titlesec}
+%\RequirePackage{titlesec}
 \RequirePackage{titletoc}
 \RequirePackage{tocloft}
 \RequirePackage{url}
@@ -141,15 +151,6 @@
 %
 % TITLE PAGE CUSTOMIZATION
 %
-% Miscellaneous
-\renewcommand\maketitle
-{
-  \thispagestyle{none-plain}
-  \begin{center}
-    {\LARGE \bf \@name} 
-  \end{center}
-  \noindent\rule{\textwidth}{0.5pt}
-}
 % Syllabus
 \ifdefined\@syllabus
 \renewcommand\maketitle
@@ -164,6 +165,9 @@
 \fi
 % Course Notes
 \ifdefined\@notes
+\ifdefined\@book
+\title{\@name}
+\else
 \renewcommand\maketitle
 {
   \thispagestyle{notes-plain}
@@ -180,6 +184,7 @@
 %  \end{center}
 %  \noindent\rule{\textwidth}{0.5pt}
 }
+\fi
 \fi
 % Homework
 \ifdefined\@homework
@@ -364,20 +369,33 @@
 % DEFINITIONS
 %
 \newtheorem{definition}{Definition}
+\ifdefined\@book
+\numberwithin{definition}{chapter}
+\else
 \numberwithin{definition}{section}
+\fi
 
 %
 % EQUATIONS
 %
+\ifdefined\@book
+\numberwithin{equation}{chapter}
+\else
 \numberwithin{equation}{section}
+\fi
 
 %
 % LECTURE ENVIRONMENT
 %
+\ifdefined\@notes
 \newcounter{lecture}
 \newcounter{tempsec}\setcounter{tempsec}{888}
 \newcounter{tempsubsec}\setcounter{tempsubsec}{888}
 \newcounter{tempsubsubsec}\setcounter{tempsubsubsec}{888}
+\ifdefined\@book
+\newenvironment{lecture}[1][]{}{}
+
+\else
 \newenvironment{lecture}[1][]
 {
   \cleardoublepage
@@ -425,6 +443,8 @@
   \renewcommand\thepage{\thelecture.\arabic{page}}
   \clearpage
 }
+\fi
+\fi
 
 % 
 % EXAMPLE ENVIRONMANT
@@ -433,7 +453,11 @@
 %\newcounter{example}
 \newcommand{\listexamplename}{\bf \Large Examples}
 \newlistof{example}{exp}{\listexamplename}
+\ifdefined\@book
+\numberwithin{example}{chapter}
+\else
 \numberwithin{example}{section}
+\fi
 \newenvironment{example}[1][]
 {
   \def\solution{\tcblower}
@@ -474,6 +498,7 @@
   \numberwithin{equation}{problem}
   \numberwithin{figure}{problem}
   \renewcommand{\theequation}{\theproblem\alph{subproblem}.\arabic{equation}}
+  \addcontentsline{toc}{subsection}{\theproblem: #1}
   \FloatBarrier{\vspace{1.5em}\bf\large Problem \setcounter{subproblem}{0}\setcounter{subproblem_all}{0}\setcounter{equation}{0}\theproblem\ifthenelse{\equal{#1}{}}{}{{\bf: #1}}
   }\nopagebreak\par\vspace{1em}\nopagebreak
 }
@@ -536,6 +561,8 @@
 
 
 \ifdefined\@notes
+\ifdefined\@book
+\else
 \cftsetindents{section}{2.3cm}{0.7cm}
 \cftsetindents{subsection}{3.2cm}{1.0cm}
 \newlength{\@lectocoffset}
@@ -551,6 +578,7 @@
       \small\color{gray}\fontfamily{phv}\fontseries{b}\fontshape{sc}\selectfont#1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss }\par\vspace{-\@lectocoffset}
     \endgroup
   }
+\fi
 \fi
 
 
@@ -603,8 +631,36 @@
 \renewcommand{\det}{\text{det}}
 
 \newtheorem{theorem}{Theorem}
+\ifdefined\@book
+\numberwithin{theorem}{chapter}
+\else
 \numberwithin{theorem}{section}
+\fi
 \newtheorem{lemma}{Lemma}
+\ifdefined\@book
+\numberwithin{lemma}{chapter}
+\else
 \numberwithin{lemma}{section}
+\fi
 \renewcommand{\sc}{\fontfamily{phv}\fontshape{sc}\selectfont}
+\ifdefined\@book
+\numberwithin{figure}{chapter}
+\else
 \numberwithin{figure}{section}
+\fi
+
+\renewenvironment{theindex}
+               {\if@twocolumn
+                  \@restonecolfalse
+                \else
+                  \@restonecoltrue
+                \fi
+                \twocolumn[\Large\textbf{\indexname}\vspace{1cm}]%
+                \@mkboth{\MakeUppercase\indexname}%
+                        {\MakeUppercase\indexname}%
+                \thispagestyle{notes-fancy}\parindent\z@
+                \parskip\z@ \@plus .3\p@\relax
+                \columnseprule \z@
+                \columnsep 35\p@
+                \let\item\@idxitem}
+               {\if@restonecol\onecolumn\else\clearpage\fi}
