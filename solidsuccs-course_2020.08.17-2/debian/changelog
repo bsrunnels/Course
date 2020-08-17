@@ -1,3 +1,9 @@
+solidsuccs-course (2020.08.17-2) xenial; urgency=low
+
+	* Fixed merge error
+
+ -- brunnels <brunnels@uccs.edu>  Mon, 20 Aug 2020 12:06:00 -0600
+
 solidsuccs-course (2020.08.17-1) xenial; urgency=low
 
 	* Added book mode that suppresses lectures and publishes as book
