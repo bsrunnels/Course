@@ -396,7 +396,8 @@
 \newcounter{tempsubsubsec}\setcounter{tempsubsubsec}{888}
 \ifdefined\@book
 \newenvironment{lecture}[1][]{}{}
-
+\newcommand\Lecture[1]{}
+\newcommand\End{}
 \else
 \newenvironment{lecture}[1][]
 {
@@ -431,6 +432,7 @@
   \addtocontents{toc}{\protect\pagebreak[1]}
   \addcontentsline{toc}{lecture}{Lecture \thelecture}
   \addtocontents{toc}{\protect\nopagebreak[4]\vspace{-\baselineskip}}
+  \def\inalecture{}
 }{
 
   \ifthenelse{\value{tocdepth}=2 \AND \value{tempsec}=\value{section} \AND \value{tempsubsec}=\value{subsection}}
@@ -444,7 +446,12 @@
   \setcounter{tempsubsubsec}{\arabic{subsubsection}}
   \renewcommand\thepage{\thelecture.\arabic{page}}
   \clearpage
+  \let\inalecture\relax
 }
+\newcommand\Lecture[1]{
+  \ifdef{\inalecture}{\end{lecture}}{}\begin{lecture}[#1]
+}
+\newcommand\End{\ifdef{\inalecture}{\end{lecture}}{}}
 \fi
 \fi
 
