@@ -5,6 +5,7 @@
 \DeclareOption{book}{\def\@book{}}
 \DeclareOption{problemset}{\def\@problemset{}}
 \DeclareOption{exam}{\def\@exam{}}
+\DeclareOption{isu}{\def\@isu}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
 \ifdefined\@book
@@ -54,17 +55,52 @@
 \RequirePackage{xstring}
 
 
+\ifdefined\@isu
+%\RequirePackage{merriweather}
+%\RequirePackage{nimbussans}
+\RequirePackage{nimbussans}
+\RequirePackage[T1]{fontenc}
+\newcommand{\titlefont}[1]{\bf #1}
+\definecolor{uccsgold}{HTML}{C8102E}
+\definecolor{uccsgray}{HTML}{F1BE48}
+\definecolor{isured}{HTML}{C8102E}
+\definecolor{isugold}{HTML}{F1BE48}
+\definecolor{isudarkgold}{HTML}{8B5B29}
+\definecolor{isukhaki}{HTML}{CAC7A7}
+\definecolor{isudarkred}{HTML}{7c2529}
+\newtcolorbox[use counter=example]{ISUHeaderBox}[3][]{%
+  enhanced jigsaw,arc=0pt,colback=isured,boxrule=0pt,top=20mm,fontupper=\color{white}
+  enlarge top by=\baselineskip/2+1mm,
+  enlarge left by=0mm,
+  sharp corners,
+  width=\linewidth-3mm,
+  fontupper=\normalsize,label={#3},
+  shadow={3mm}{-3mm}{0mm}{fill=black!25,opacity=1.0},
+  overlay unbroken and first={%
+    \node[rectangle,fill=isugold,
+    inner sep=2mm,inner xsep=6mm,anchor=west,font=\LARGE]
+    at ([xshift=-6mm,yshift=-10mm]frame.north west)
+    {\strut\textbf{\LARGE \color{isudarkred} \scalebox{0.8}[1.0]{\MakeUppercase{#2} }}};
+  },
+  frame code={% fake shadow - right now an exact duplicate to ensure sizes match
+    \node[rectangle,fill=black!25,
+    inner sep=2mm,inner xsep=6mm,anchor=west,font=\LARGE]
+    at ([xshift=-3mm,yshift=-13mm]frame.north west)
+    {\strut\textbf{\LARGE \color{isudarkred} \scalebox{0.8}[1.0]{#2} }};
+  },
+  #1}%
+\else
 \RequirePackage[rm]{roboto}
 \RequirePackage[T1]{fontenc}
+\newcommand{\titlefont}[1]{\robotoslab #1}
+\definecolor{uccsgold}{HTML}{CFB87C}
+\definecolor{uccsgray}{HTML}{ECECEC}
+\fi
 
 %
 % COLORS
 %
 %\definecolor{uccsgold}{hrml}{#cfb87c}
-\definecolor{uccsgold}{HTML}{CFB87C}
-\definecolor{uccsgray}{HTML}{ECECEC}
-\newcommand\primarycolor[1]{\definecolor{uccsgold}{HTML}{#1}}
-\newcommand\secondarycolor[1]{\definecolor{uccsgray}{HTML}{#1}}
 
 %
 % These three lines fix an error introduced with titlesec when upgrading LaTeX 
@@ -159,9 +195,9 @@
 {
   \thispagestyle{syllabus-plain}
   \begin{tcolorbox}[enhanced jigsaw,arc=0pt,boxrule=0pt,borderline west={5pt}{0pt}{uccsgold},colback=uccsgray]
-    {\LARGE \bf  \robotoslab \@name} 
+    {\LARGE \bf  \titlefont{\@name}} 
 
-    \vspace{10pt}\vspace{5pt}{\LARGE \bf \robotoslab Syllabus}
+    \vspace{10pt}\vspace{5pt}{\LARGE \bf \titlefont{Syllabus}}
  \end{tcolorbox}
 }
 \fi
@@ -174,9 +210,9 @@
 {
   \thispagestyle{notes-plain}
   \begin{tcolorbox}[enhanced jigsaw,arc=0pt,boxrule=0pt,borderline west={5pt}{0pt}{uccsgold},colback=uccsgray]
-    {\LARGE \bf  \robotoslab \@name} 
+    {\LARGE \bf  \titlefont{\@name}} 
 
-    \vspace{10pt}{\LARGE \bf \robotoslab Course Notes}
+    \vspace{10pt}{\LARGE \bf \titlefont{Course Notes}}
 
     \ifdefined\@author \vspace{10pt}{\bf \@author} \fi
   \end{tcolorbox}
@@ -194,9 +230,9 @@
 {
   \thispagestyle{ps-plain}
   \begin{tcolorbox}[enhanced jigsaw,arc=0pt,boxrule=0pt,borderline west={5pt}{0pt}{uccsgold},colback=uccsgray]
-    {\LARGE \bf  \robotoslab \@name} 
+    {\LARGE \bf  \titlefont{\@name}} 
 
-    \vspace{10pt}{\LARGE \bf \robotoslab \@pstitle \ifdefined\Solutions\ Solutions \fi}
+    \vspace{10pt}{\LARGE \bf \titlefont{\@pstitle \ifdefined\Solutions\ Solutions \fi}}
 
     \ifdefined\@duedate
     \vspace{0.5cm}
@@ -218,9 +254,9 @@
 {
   \thispagestyle{exam-plain}
   \begin{tcolorbox}[enhanced jigsaw,arc=0pt,boxrule=0pt,borderline west={5pt}{0pt}{uccsgold},colback=uccsgray]
-    {\LARGE \bf \robotoslab \@name} 
+    {\LARGE \bf \titlefont{\@name}} 
 
-    \vspace{10pt}{\LARGE \bf \robotoslab \@examname \ifdefined\Solutions\ Solutions \fi}
+    \vspace{10pt}{\LARGE \bf \titlefont{\@examname \ifdefined\Solutions\ Solutions \fi}}
 
     \ifdefined\@givendate
     \vspace{0.5cm}
@@ -421,10 +457,10 @@
     borderline south={1pt}{0pt}{black},
     colback=uccsgray]
     \begin{minipage}[c]{3.5cm}
-    {\color{white}\Large \bf  \robotoslab Lecture \thelecture}
+    {\color{white}\Large \bf  \titlefont{Lecture \thelecture}}
     \end{minipage}
     \begin{minipage}[c]{13cm}
-    {\Large \bf  \robotoslab #1}
+    {\Large \bf  \titlefont{#1}}
     \end{minipage}
   \end{tcolorbox}
 
