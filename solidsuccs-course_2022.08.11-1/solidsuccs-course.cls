@@ -56,9 +56,9 @@
 
 
 \ifdefined\@isu
-%\RequirePackage{merriweather}
+\RequirePackage{palatino}
 %\RequirePackage{nimbussans}
-\RequirePackage{nimbussans}
+%\RequirePackage{nimbussans}
 \RequirePackage[T1]{fontenc}
 \newcommand{\titlefont}[1]{\bf #1}
 \definecolor{uccsgold}{HTML}{C8102E}
@@ -194,11 +194,21 @@
 \renewcommand\maketitle
 {
   \thispagestyle{syllabus-plain}
-  \begin{tcolorbox}[enhanced jigsaw,arc=0pt,boxrule=0pt,borderline west={5pt}{0pt}{uccsgold},colback=uccsgray]
-    {\LARGE \bf  \titlefont{\@name}} 
+  \ifdefined\@isu
+  \begin{ISUHeaderBox}{SYLLABUS - \@date}{fancy:title}
+    {\color{isugold}\LARGE \textbf{\@name}}
 
-    \vspace{10pt}\vspace{5pt}{\LARGE \bf \titlefont{Syllabus}}
- \end{tcolorbox}
+    \vspace{10pt}{\large \color{white}\textbf{\@author}}
+
+    \vspace{10pt}{\large \color{white}Department of Aerospace Engineering \\ Iowa State University}
+  \end{ISUHeaderBox}
+  \else
+  \begin{tcolorbox}[enhanced jigsaw,arc=0pt,boxrule=0pt,borderline west={5pt}{0pt}{uccsgold},colback=\uccsgray]
+    {\LARGE \titlefont{\bf \@name}} 
+
+    \vspace{10pt}\vspace{5pt}{\LARGE \titlefont{\color{isudarkgold}Syllabus}}
+  \end{tcolorbox}
+  \fi
 }
 \fi
 % Course Notes
@@ -209,18 +219,24 @@
 \renewcommand\maketitle
 {
   \thispagestyle{notes-plain}
-  \begin{tcolorbox}[enhanced jigsaw,arc=0pt,boxrule=0pt,borderline west={5pt}{0pt}{uccsgold},colback=uccsgray]
-    {\LARGE \bf  \titlefont{\@name}} 
+  \ifdefined\@isu
+  \begin{ISUHeaderBox}{COURSE NOTES}{fancy:title}
+    {\color{isugold}\LARGE \textbf{\@name}}
 
-    \vspace{10pt}{\LARGE \bf \titlefont{Course Notes}}
+    \vspace{10pt}{\large \color{white}\textbf{\@author}}
+
+    \vspace{10pt}{\large \color{white}Department of Aerospace Engineering \\ Iowa State University}
+  \end{ISUHeaderBox}
+  \vspace{1cm}
+  \else
+  \begin{tcolorbox}[enhanced jigsaw,arc=0pt,boxrule=0pt,borderline west={5pt}{0pt}{uccsgold},colback=uccsgray]
+    {\LARGE \titlefont{\@name}} 
+
+    \vspace{10pt}{\LARGE \titlefont{Course Notes}}
 
     \ifdefined\@author \vspace{10pt}{\bf \@author} \fi
   \end{tcolorbox}
-%  \begin{center}
-%    {\LARGE \bf \@name} \\
-%    \vspace{5pt}{\LARGE \bf Course Notes}
-%  \end{center}
-%  \noindent\rule{\textwidth}{0.5pt}
+  \fi
 }
 \fi
 \fi
@@ -229,10 +245,15 @@
 \renewcommand\maketitle
 {
   \thispagestyle{ps-plain}
+  \ifdefined\@isu
+    \begin{ISUHeaderBox}{\@pstitle \ifdefined\Solutions\ Solutions\fi}{fancy:title}
+    \vspace{10pt}{\large \color{white}\textbf{\@author}}
+  \end{ISUHeaderBox}
+  \else
   \begin{tcolorbox}[enhanced jigsaw,arc=0pt,boxrule=0pt,borderline west={5pt}{0pt}{uccsgold},colback=uccsgray]
-    {\LARGE \bf  \titlefont{\@name}} 
+    {\LARGE \titlefont{\@name}} 
 
-    \vspace{10pt}{\LARGE \bf \titlefont{\@pstitle \ifdefined\Solutions\ Solutions \fi}}
+    \vspace{10pt}{\LARGE \titlefont{\@pstitle \ifdefined\Solutions\ Solutions \fi}}
 
     \ifdefined\@duedate
     \vspace{0.5cm}
@@ -246,6 +267,7 @@
     {\@psnotes}
     \fi    
   \end{tcolorbox}
+  \fi
 }
 \fi
 % Exam
@@ -254,9 +276,9 @@
 {
   \thispagestyle{exam-plain}
   \begin{tcolorbox}[enhanced jigsaw,arc=0pt,boxrule=0pt,borderline west={5pt}{0pt}{uccsgold},colback=uccsgray]
-    {\LARGE \bf \titlefont{\@name}} 
+    {\LARGE \titlefont{\@name}} 
 
-    \vspace{10pt}{\LARGE \bf \titlefont{\@examname \ifdefined\Solutions\ Solutions \fi}}
+    \vspace{10pt}{\LARGE \titlefont{\@examname \ifdefined\Solutions\ Solutions \fi}}
 
     \ifdefined\@givendate
     \vspace{0.5cm}
@@ -447,6 +469,25 @@
   \rhead{\small{\bf Course Notes - Lecture \thelecture} \\ \@webpage}
   \renewcommand\thepage{\thelecture.\arabic{page}}
 
+  \ifdefined\@isu
+  \begin{tcolorbox}[
+    enhanced jigsaw,
+    arc=0pt,
+    boxrule=0pt,
+    sharp corners,
+    shadow={2mm}{-2mm}{0mm}{fill=black!25,opacity=1.0},
+    width=\linewidth-2mm,
+    borderline west={3.5cm}{0pt}{isured},
+    borderline west={3pt}{0pt}{isured},
+    colback=isukhaki]
+    \begin{minipage}[c]{3.5cm}
+    {\color{isugold}\Large \titlefont{Lecture \thelecture}}
+    \end{minipage}
+    \begin{minipage}[c]{13cm}
+    {\Large \titlefont{#1}}
+    \end{minipage}
+  \end{tcolorbox}
+  \else
   \begin{tcolorbox}[
     enhanced jigsaw,
     arc=0pt,
@@ -457,12 +498,13 @@
     borderline south={1pt}{0pt}{black},
     colback=uccsgray]
     \begin{minipage}[c]{3.5cm}
-    {\color{white}\Large \bf  \titlefont{Lecture \thelecture}}
+    {\color{white}\Large \titlefont{Lecture \thelecture}}
     \end{minipage}
     \begin{minipage}[c]{13cm}
-    {\Large \bf  \titlefont{#1}}
+    {\Large \titlefont{#1}}
     \end{minipage}
   \end{tcolorbox}
+  \fi
 
   \nopagebreak\par\vspace{1em}\nopagebreak
   \addtocontents{toc}{\protect\pagebreak[1]}
@@ -505,6 +547,7 @@
 \fi
 \newenvironment{example}[1][]
 {
+  \def\insideexample{}
   \def\solution{\tcblower}
   \stepcounter{example}
   \addcontentsline{exp}{example}{{\bf Example \theexample}: #1}
@@ -514,15 +557,18 @@
   }
   { 
   \end{tcolorbox}
+  \let\insideexample\undefined
 }
 \newenvironment{example*}[1][]
 {
+  \def\insideexample{}
   \def\solution{\tcblower}
   \begin{tcolorbox}[breakable,enhanced,colback=gray!10!white,colframe=black,
     coltitle=black,colbacktitle=gray!70,title=\textbf{Example \theexample\ Continued}]
   }
   { 
   \end{tcolorbox}
+  \let\insideexample\undefined
 }
 
 %
@@ -543,9 +589,7 @@
   \numberwithin{equation}{problem}
   \numberwithin{figure}{problem}
   \renewcommand{\theequation}{\theproblem\alph{subproblem}.\arabic{equation}}
-  \ifdefined\@problemset
   \addcontentsline{toc}{subsection}{\theproblem: #1}
-  \fi
   \FloatBarrier{\vspace{1.5em}\bf\large Problem \setcounter{subproblem}{0}\setcounter{subproblem_all}{0}\setcounter{equation}{0}\theproblem\ifthenelse{\equal{#1}{}}{}{{\bf: #1}}
   }\nopagebreak\par\vspace{1em}\nopagebreak
 }
@@ -646,6 +690,7 @@
   \refstepcounter{problem}\label{pr:#2}
   \input{\currentpath/problem.tex}
   \def\currentpath{figures}
+  \let\includedsubproblems\undefined
 }
 \def\@without#1{
   \def\currentpath{#1}
