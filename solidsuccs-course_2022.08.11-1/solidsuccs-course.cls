@@ -507,7 +507,9 @@
   \numberwithin{equation}{problem}
   \numberwithin{figure}{problem}
   \renewcommand{\theequation}{\theproblem\alph{subproblem}.\arabic{equation}}
+  \ifdefined\@problemset
   \addcontentsline{toc}{subsection}{\theproblem: #1}
+  \fi
   \FloatBarrier{\vspace{1.5em}\bf\large Problem \setcounter{subproblem}{0}\setcounter{subproblem_all}{0}\setcounter{equation}{0}\theproblem\ifthenelse{\equal{#1}{}}{}{{\bf: #1}}
   }\nopagebreak\par\vspace{1em}\nopagebreak
 }
