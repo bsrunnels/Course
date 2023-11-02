@@ -69,7 +69,13 @@
 \definecolor{isukhaki}{HTML}{CAC7A7}
 \definecolor{isudarkred}{HTML}{7c2529}
 \newtcolorbox[use counter=example]{ISUHeaderBox}[3][]{%
-  enhanced jigsaw,arc=0pt,colback=isured,boxrule=0pt,top=20mm,fontupper=\color{white}
+  enhanced jigsaw,
+  arc=0pt,
+  colframe=isugold,
+  colback=isured,
+  boxrule=3pt,
+  top=20mm,
+  fontupper=\color{white},
   enlarge top by=\baselineskip/2+1mm,
   enlarge left by=0mm,
   sharp corners,
@@ -77,16 +83,24 @@
   fontupper=\normalsize,label={#3},
   shadow={3mm}{-3mm}{0mm}{fill=black!25,opacity=1.0},
   overlay unbroken and first={%
-    \node[rectangle,fill=isugold,
-    inner sep=2mm,inner xsep=6mm,anchor=west,font=\LARGE]
+    \node[rectangle,
+    fill=isugold,
+    inner sep=2mm,
+    inner xsep=6mm,
+    anchor=west,
+    font=\LARGE]
     at ([xshift=-6mm,yshift=-10mm]frame.north west)
     {\strut\textbf{\LARGE \color{isudarkred} \scalebox{0.8}[1.0]{\MakeUppercase{#2} }}};
   },
   frame code={% fake shadow - right now an exact duplicate to ensure sizes match
-    \node[rectangle,fill=black!25,
-    inner sep=2mm,inner xsep=6mm,anchor=west,font=\LARGE]
+    \node[rectangle,
+    fill=black!25,
+    inner sep=2mm,
+    inner xsep=6mm,
+    anchor=west,
+    font=\LARGE]
     at ([xshift=-3mm,yshift=-13mm]frame.north west)
-    {\strut\textbf{\LARGE \color{isudarkred} \scalebox{0.8}[1.0]{#2} }};
+    {\strut\textbf{\LARGE\scalebox{0.8}[1.0]{ \ } }};
   },
   #1}%
 \else
@@ -157,7 +171,7 @@
 \setlength{\footskip}{30pt}
 % Sans Serif Font
 \renewcommand{\familydefault}{\sfdefault}
-\renewcommand*{\arraystretch}{0.75} % change matrix height
+\renewcommand*{\arraystretch}{1} % change matrix height
 % Page rule styling
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
@@ -479,13 +493,13 @@
     width=\linewidth-2mm,
     borderline west={3.5cm}{0pt}{isured},
     borderline west={3pt}{0pt}{isured},
-    colback=isukhaki]
-    \begin{minipage}[c]{3.5cm}
-    {\color{isugold}\Large \titlefont{Lecture \thelecture}}
-    \end{minipage}
-    \begin{minipage}[c]{13cm}
-    {\Large \titlefont{#1}}
-    \end{minipage}
+    colback=isukhaki]%
+    \begin{minipage}[c]{3.5cm}%
+      {\color{isugold}\Large\titlefont{Lecture \thelecture}}%
+    \end{minipage}%
+    \begin{minipage}[c]{13cm}%
+      \vspace{3px}{\Large\titlefont{#1}}%
+    \end{minipage}%
   \end{tcolorbox}
   \else
   \begin{tcolorbox}[
