@@ -261,8 +261,22 @@
   \thispagestyle{ps-plain}
   \ifdefined\@isu
     \begin{ISUHeaderBox}{\@pstitle \ifdefined\Solutions\ Solutions\fi}{fancy:title}
+    {\color{isugold}\LARGE \textbf{\@name}}
+
     \vspace{10pt}{\large \color{white}\textbf{\@author}}
-  \end{ISUHeaderBox}
+
+    \ifdefined\@duedate
+    \ifdefined\@assigneddate{ \color{white} Assigned: \@assigneddate} \fi 
+
+    \vspace{1pt}{ \color{white} \bf Due: \@duedate}
+    \fi
+
+    \ifdefined\@psnotes
+    \vspace{0.5cm}
+    {\color{white}\@psnotes}
+    \fi    
+
+  \end{ISUHeaderBox}\vspace{1cm}
   \else
   \begin{tcolorbox}[enhanced jigsaw,arc=0pt,boxrule=0pt,borderline west={5pt}{0pt}{uccsgold},colback=uccsgray]
     {\LARGE \titlefont{\@name}} 
