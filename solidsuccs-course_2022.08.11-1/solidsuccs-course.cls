@@ -19,7 +19,7 @@
 \LoadClass{article}
 \fi
 
-%
+% 
 % PACKAGES
 %
 %\RequirePackage{lmodern}
@@ -72,16 +72,16 @@
   enhanced jigsaw,
   arc=0pt,
   colframe=isugold,
-  colback=isured,
+  colback=black!10,
   boxrule=3pt,
   top=20mm,
-  fontupper=\color{white},
+  fontupper=\color{black},
   enlarge top by=\baselineskip/2+1mm,
   enlarge left by=0mm,
   sharp corners,
   width=\linewidth-3mm,
   fontupper=\normalsize,label={#3},
-  shadow={3mm}{-3mm}{0mm}{fill=black!25,opacity=1.0},
+  shadow={3mm}{-3mm}{0mm}{fill=black!50,opacity=1.0},
   overlay unbroken and first={%
     \node[rectangle,
     fill=isugold,
@@ -210,11 +210,11 @@
   \thispagestyle{syllabus-plain}
   \ifdefined\@isu
   \begin{ISUHeaderBox}{SYLLABUS - \@date}{fancy:title}
-    {\color{isugold}\LARGE \textbf{\@name}}
+    {\color{isured}\LARGE \textbf{\@name}}
 
-    \vspace{10pt}{\large \color{white}\textbf{\@author}}
+    \vspace{10pt}{\large \textbf{\@author}}
 
-    \vspace{10pt}{\large \color{white}Department of Aerospace Engineering \\ Iowa State University}
+    \vspace{10pt}{\large Department of Aerospace Engineering \\ Iowa State University}
   \end{ISUHeaderBox}
   \else
   \begin{tcolorbox}[enhanced jigsaw,arc=0pt,boxrule=0pt,borderline west={5pt}{0pt}{uccsgold},colback=\uccsgray]
@@ -235,11 +235,11 @@
   \thispagestyle{notes-plain}
   \ifdefined\@isu
   \begin{ISUHeaderBox}{COURSE NOTES}{fancy:title}
-    {\color{isugold}\LARGE \textbf{\@name}}
+    {\color{isured}\LARGE \textbf{\@name}}
 
-    \vspace{10pt}{\large \color{white}\textbf{\@author}}
+    \vspace{10pt}{\large \textbf{\@author}}
 
-    \vspace{10pt}{\large \color{white}Department of Aerospace Engineering \\ Iowa State University}
+    \vspace{10pt}{\large Department of Aerospace Engineering \\ Iowa State University}
   \end{ISUHeaderBox}
   \vspace{1cm}
   \else
@@ -498,22 +498,21 @@
   \renewcommand\thepage{\thelecture.\arabic{page}}
 
   \ifdefined\@isu
+  {
+    \Large\titlefont{Lecture \thelecture}:
+    \titlefont{#1}
+  }
   \begin{tcolorbox}[
     enhanced jigsaw,
+    left=0pt,
     arc=0pt,
     boxrule=0pt,
     sharp corners,
-    shadow={2mm}{-2mm}{0mm}{fill=black!25,opacity=1.0},
-    width=\linewidth-2mm,
-    borderline west={3.5cm}{0pt}{isured},
-    borderline west={3pt}{0pt}{isured},
-    colback=isukhaki]%
-    \begin{minipage}[c]{3.5cm}%
-      {\color{isugold}\Large\titlefont{Lecture \thelecture}}%
-    \end{minipage}%
-    \begin{minipage}[c]{13cm}%
-      \vspace{3px}{\Large\titlefont{#1}}%
-    \end{minipage}%
+    width=1cm,
+    height=0cm,
+    colback=white,
+    borderline south={3pt}{0pt}{isugold},
+    ]%
   \end{tcolorbox}
   \else
   \begin{tcolorbox}[
