@@ -84,13 +84,13 @@
   shadow={3mm}{-3mm}{0mm}{fill=black!50,opacity=1.0},
   overlay unbroken and first={%
     \node[rectangle,
-    fill=isugold,
+    fill=isured,
     inner sep=2mm,
     inner xsep=6mm,
     anchor=west,
     font=\LARGE]
     at ([xshift=-6mm,yshift=-10mm]frame.north west)
-    {\strut\textbf{\LARGE \color{isudarkred} \scalebox{0.8}[1.0]{\MakeUppercase{#2} }}};
+    {\strut\textbf{\LARGE \color{isugold} \scalebox{0.8}[1.0]{\MakeUppercase{#2} }}};
   },
   frame code={% fake shadow - right now an exact duplicate to ensure sizes match
     \node[rectangle,
@@ -261,19 +261,19 @@
   \thispagestyle{ps-plain}
   \ifdefined\@isu
     \begin{ISUHeaderBox}{\@pstitle \ifdefined\Solutions\ Solutions\fi}{fancy:title}
-    {\color{isugold}\LARGE \textbf{\@name}}
+    {\color{isured}\LARGE \textbf{\@name}}
 
-    \vspace{10pt}{\large \color{white}\textbf{\@author}}
+    \vspace{10pt}{\large \color{black}\textbf{\@author}}
 
     \ifdefined\@duedate
-    \ifdefined\@assigneddate{ \color{white} Assigned: \@assigneddate} \fi 
+    \ifdefined\@assigneddate{ \color{black} Assigned: \@assigneddate} \fi 
 
-    \vspace{1pt}{ \color{white} \bf Due: \@duedate}
+    \vspace{1pt}{ \color{black} \bf Due: \@duedate}
     \fi
 
     \ifdefined\@psnotes
     \vspace{0.5cm}
-    {\color{white}\@psnotes}
+    {\color{black}\@psnotes}
     \fi    
 
   \end{ISUHeaderBox}\vspace{1cm}
