@@ -46,6 +46,7 @@
 \RequirePackage[breakable,most]{tcolorbox}
 \RequirePackage{textcomp}
 \RequirePackage{textpos}
+\RequirePackage{soul}
 %\RequirePackage{titlesec}
 \RequirePackage{titletoc}
 \RequirePackage{tocloft}
@@ -90,7 +91,7 @@
     anchor=west,
     font=\LARGE]
     at ([xshift=-6mm,yshift=-10mm]frame.north west)
-    {\strut\textbf{\LARGE \color{isugold} \scalebox{0.8}[1.0]{\MakeUppercase{#2} }}};
+    {\strut\textbf{\LARGE \color{black!10} \scalebox{0.8}[1.0]{\MakeUppercase{#2} }}};
   },
   frame code={% fake shadow - right now an exact duplicate to ensure sizes match
     \node[rectangle,
@@ -110,6 +111,18 @@
 \definecolor{uccsgold}{HTML}{CFB87C}
 \definecolor{uccsgray}{HTML}{ECECEC}
 \fi
+
+
+
+%
+% COLORED UNDERLINE
+%
+\newcommand\dunderline[3][-1pt]{{%
+  \sbox0{#3}%
+  \ooalign{%
+    \copy0\cr\textcolor{isugold}{\rule[\dimexpr#1-#2\relax]{\wd0}{#2}}%
+  }%
+}}
 
 %
 % COLORS
@@ -210,7 +223,7 @@
   \thispagestyle{syllabus-plain}
   \ifdefined\@isu
   \begin{ISUHeaderBox}{SYLLABUS - \@date}{fancy:title}
-    {\color{isured}\LARGE \textbf{\@name}}
+    \dunderline[-6pt]{2pt}{\color{isured}\LARGE \textbf{\@name}}
 
     \vspace{10pt}{\large \textbf{\@author}}
 
@@ -235,7 +248,8 @@
   \thispagestyle{notes-plain}
   \ifdefined\@isu
   \begin{ISUHeaderBox}{COURSE NOTES}{fancy:title}
-    {\color{isured}\LARGE \textbf{\@name}}
+
+    \dunderline[-6pt]{2pt}{\color{isured}\LARGE \textbf{\@name}}
 
     \vspace{10pt}{\large \textbf{\@author}}
 
@@ -261,7 +275,7 @@
   \thispagestyle{ps-plain}
   \ifdefined\@isu
     \begin{ISUHeaderBox}{\@pstitle \ifdefined\Solutions\ Solutions\fi}{fancy:title}
-    {\color{isured}\LARGE \textbf{\@name}}
+    \dunderline[-6pt]{2pt}{\color{isured}\LARGE \textbf{\@name}}
 
     \vspace{10pt}{\large \color{black}\textbf{\@author}}
 
@@ -304,7 +318,7 @@
 {
   \thispagestyle{exam-plain}
   \begin{tcolorbox}[enhanced jigsaw,arc=0pt,boxrule=0pt,borderline west={5pt}{0pt}{uccsgold},colback=uccsgray]
-    {\LARGE \titlefont{\@name}} 
+    \dunderline[-6pt]{2pt}{\color{isured}\LARGE \textbf{\@name}}
 
     \vspace{10pt}{\LARGE \titlefont{\@examname \ifdefined\Solutions\ Solutions \fi}}
 
@@ -499,21 +513,8 @@
 
   \ifdefined\@isu
   {
-    \Large\titlefont{Lecture \thelecture}:
-    \titlefont{#1}
+    \dunderline[-6pt]{2pt}{\Large\titlefont{Lecture \thelecture: #1}}
   }
-  \begin{tcolorbox}[
-    enhanced jigsaw,
-    left=0pt,
-    arc=0pt,
-    boxrule=0pt,
-    sharp corners,
-    width=1cm,
-    height=0cm,
-    colback=white,
-    borderline south={3pt}{0pt}{isugold},
-    ]%
-  \end{tcolorbox}
   \else
   \begin{tcolorbox}[
     enhanced jigsaw,
