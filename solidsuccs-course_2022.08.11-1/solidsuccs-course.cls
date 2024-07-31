@@ -84,14 +84,28 @@
   fontupper=\normalsize,label={#3},
   shadow={3mm}{-3mm}{0mm}{fill=black!50,opacity=1.0},
   overlay unbroken and first={%
+    % Draw the rectangle with text inside it, without an outline
     \node[rectangle,
-    fill=isured,
-    inner sep=2mm,
-    inner xsep=6mm,
-    anchor=west,
-    font=\LARGE]
-    at ([xshift=-6mm,yshift=-10mm]frame.north west)
-    {\strut\textbf{\LARGE \color{black!10} \scalebox{0.8}[1.0]{\MakeUppercase{#2} }}};
+        fill=isured,
+        inner sep=0,
+        minimum height=3mm,
+        anchor=west,
+        inner sep=3mm,
+        inner xsep=5mm,
+        ] (rect) at ([xshift=-6mm,yshift=-10mm]frame.north west)
+        {\textbf{\LARGE \color{black!10} \scalebox{0.8}[1.0]{\MakeUppercase{#2} }}};
+    % Draw the yellow border at the bottom
+    \draw[isugold, line width=4pt] (rect.south west) -- (rect.south east);
+
+    % Draw the rectangle shape again but without a border
+    %\draw[fill=none] (rect.north west) rectangle (rect.south east);
+%    \node[draw,
+%    fill=isured,
+%    inner sep=2mm,
+%    inner xsep=6mm,
+%    anchor=west]
+%    at ([xshift=-6mm,yshift=-10mm]frame.north west)
+%    {\strut\textbf{\LARGE \color{black!10} \scalebox{0.8}[1.0]{\MakeUppercase{#2} }}};
   },
   frame code={% fake shadow - right now an exact duplicate to ensure sizes match
     \node[rectangle,
@@ -223,7 +237,8 @@
   \thispagestyle{syllabus-plain}
   \ifdefined\@isu
   \begin{ISUHeaderBox}{SYLLABUS - \@date}{fancy:title}
-    \dunderline[-6pt]{2pt}{\color{isured}\LARGE \textbf{\@name}}
+    % \dunderline[-6pt]{2pt}
+    {\color{isured}\LARGE \textbf{\@name}}
 
     \vspace{10pt}{\large \textbf{\@author}}
 
@@ -249,7 +264,8 @@
   \ifdefined\@isu
   \begin{ISUHeaderBox}{COURSE NOTES}{fancy:title}
 
-    \dunderline[-6pt]{2pt}{\color{isured}\LARGE \textbf{\@name}}
+    %\dunderline[-6pt]{2pt}
+    {\color{isured}\LARGE \textbf{\@name}}
 
     \vspace{10pt}{\large \textbf{\@author}}
 
@@ -275,7 +291,8 @@
   \thispagestyle{ps-plain}
   \ifdefined\@isu
     \begin{ISUHeaderBox}{\@pstitle \ifdefined\Solutions\ Solutions\fi}{fancy:title}
-    \dunderline[-6pt]{2pt}{\color{isured}\LARGE \textbf{\@name}}
+      %\dunderline[-6pt]{2pt}
+      {\color{isured}\LARGE \textbf{\@name}}
 
     \vspace{10pt}{\large \color{black}\textbf{\@author}}
 
@@ -318,7 +335,8 @@
 {
   \thispagestyle{exam-plain}
   \begin{tcolorbox}[enhanced jigsaw,arc=0pt,boxrule=0pt,borderline west={5pt}{0pt}{uccsgold},colback=uccsgray]
-    \dunderline[-6pt]{2pt}{\color{isured}\LARGE \textbf{\@name}}
+    %\dunderline[-6pt]{2pt}
+    {\color{isured}\LARGE \textbf{\@name}}
 
     \vspace{10pt}{\LARGE \titlefont{\@examname \ifdefined\Solutions\ Solutions \fi}}
 
@@ -513,7 +531,9 @@
 
   \ifdefined\@isu
   {
-    \dunderline[-6pt]{2pt}{\Large\titlefont{Lecture \thelecture: #1}}
+    \dunderline[-6pt]{2pt}{
+      \Large\titlefont{Lecture \thelecture\ifthenelse{\equal{#1}{}}{}{:\ #1}}
+    }
   }
   \else
   \begin{tcolorbox}[
